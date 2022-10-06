@@ -1,0 +1,1 @@
+The aws infrastructure of Learning DevOps project managed by Terraform.
