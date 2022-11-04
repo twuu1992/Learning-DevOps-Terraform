@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    tools{
-        terraform 'terraform'
-    }
-    options { ansiColor('xterm') }
+    // tools{
+    //     terraform 'terraform'
+    // }
+    // options { ansiColor('xterm') }
     stages {
         stage('Checkout Repo') {
             steps {
@@ -56,11 +56,11 @@ pipeline {
             terraform apply --auto-approve
             ''' 
             }
-                post { 
-                    always { 
-                        cleanWs()
-                    }
-                }
+                // post { 
+                //     always { 
+                //         cleanWs()
+                //     }
+                // }
         }
     }
 }
