@@ -1,5 +1,12 @@
 // TODO: migrate backend to TF cloud for furture CI/CD pipeline
 terraform {
+  cloud {
+    organization = "aws_devops"
+
+    workspaces {
+      name = "jenkins-pipeline"
+    }
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -41,13 +48,3 @@ resource "aws_instance" "my_user_db" {
     "Name" = "my-user-db"
   }
 }
-
-# resource "aws_network_interface_sg_attachment" "app-sg-attachment" {
-#   security_group_id    = aws_security_group.app.id
-#   network_interface_id = aws_instance.my_user_app.primary_network_interface_id
-# }
-
-# resource "aws_network_interface_sg_attachment" "mongodb-sg-attachment" {
-#   security_group_id    = aws_security_group.mongodb.id
-#   network_interface_id = aws_instance.my_user_db.primary_network_interface_id
-# }
