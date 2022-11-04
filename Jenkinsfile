@@ -22,6 +22,7 @@ pipeline {
             steps {
             sh '''
             echo 'Assume AWS Role'
+            whoami
             key=$(aws sts assume-role --role-arn arn:aws:iam::912752405432:role/terraform-creation-role --role-session-name JenkinsSession --query "Credentials.[AccessKeyId,SecretAccessKey,SessionToken]" --output text)
             export AWS_ACCES_KEY_ID=$(echo $key | aws '{print $1}')
             export AWS_SECRET_ACCESS_KEY=$(echo $key | aws '{print $2}')
