@@ -27,6 +27,7 @@ pipeline {
             export AWS_ACCES_KEY_ID=$(echo $key | aws '{print $1}')
             export AWS_SECRET_ACCESS_KEY=$(echo $key | aws '{print $2}')
             export AWS_SESSION_TOKEN=$(echo $key | aws '{print $3}')
+            export AWS_DEFAULT_REGION=ap-southeast-2
             ''' 
             }
         }
@@ -44,8 +45,7 @@ pipeline {
             steps {
             sh '''
             cd Learning-DevOps-Terraform/
-            terraform plan -out=tfplan.out
-            terraform show -json tfplan.out
+            terraform plan
             ''' 
             }
         }
