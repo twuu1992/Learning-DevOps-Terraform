@@ -28,6 +28,7 @@ pipeline {
             export AWS_SECRET_ACCESS_KEY=$(echo $key | aws '{print $2}')
             export AWS_SESSION_TOKEN=$(echo $key | aws '{print $3}')
             export AWS_DEFAULT_REGION=ap-southeast-2
+            export AWS_DEFAULT_PROFILE=terraform_agent
             ''' 
             }
         }
