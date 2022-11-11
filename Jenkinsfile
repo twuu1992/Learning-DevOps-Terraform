@@ -28,7 +28,6 @@ pipeline {
             export AWS_SECRET_ACCESS_KEY=$(echo $key | aws '{print $2}')
             export AWS_SESSION_TOKEN=$(echo $key | aws '{print $3}')
             export AWS_DEFAULT_REGION=ap-southeast-2
-            export AWS_DEFAULT_PROFILE=terraform_agent
             ''' 
             }
         }
@@ -46,7 +45,7 @@ pipeline {
             steps {
             sh '''
             cd Learning-DevOps-Terraform/
-            terraform plan
+            terraform plan -var my_ip_addr=${my_ip_addr}
             ''' 
             }
         }
@@ -55,7 +54,7 @@ pipeline {
             steps {
             sh '''
             cd Learning-DevOps-Terraform/
-            terraform apply --auto-approve
+            terraform apply -var my_ip_addr=${my_ip_addr} --auto-approve
             ''' 
             }
                 // post { 

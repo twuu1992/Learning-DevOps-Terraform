@@ -1,12 +1,5 @@
 // TODO: migrate backend to TF cloud for furture CI/CD pipeline
 terraform {
-  cloud {
-    organization = "aws_devops"
-
-    workspaces {
-      name = "jenkins-pipeline"
-    }
-  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -16,7 +9,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = "terraform_agent"
+  profile = "default"
   region  = var.region
 }
 
