@@ -1,6 +1,6 @@
 provider "aws" {
-  profile = "jenkins"
-  region  = var.region
+  # profile = "jenkins"
+  region = var.region
 }
 
 // EC2 instances

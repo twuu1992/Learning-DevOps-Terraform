@@ -51,23 +51,23 @@ pipeline {
             }
         }
             
-        stage ('Terraform apply') { 
-            steps {
-            sh '''
-            cd Learning-DevOps-Terraform/
-            terraform apply -var my_ip_addr=${my_ip_addr} --auto-approve
-            ''' 
-            }
-        }
+        // stage ('Terraform apply') { 
+        //     steps {
+        //     sh '''
+        //     cd Learning-DevOps-Terraform/
+        //     terraform apply -var my_ip_addr=${my_ip_addr} --auto-approve
+        //     ''' 
+        //     }
+        // }
 
-        stage ('Terraform destroy') { 
-            steps {
-            sh '''
-            cd Learning-DevOps-Terraform/
-            sleep 30s
-            terraform destroy -var my_ip_addr=${my_ip_addr} --auto-approve
-            ''' 
-            }
-        }
+        // stage ('Terraform destroy') { 
+        //     steps {
+        //     sh '''
+        //     cd Learning-DevOps-Terraform/
+        //     sleep 30s
+        //     terraform destroy -var my_ip_addr=${my_ip_addr} --auto-approve
+        //     ''' 
+        //     }
+        // }
     }
 }
