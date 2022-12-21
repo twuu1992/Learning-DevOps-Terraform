@@ -7,3 +7,5 @@
 *tfvars.json
 
 .terraform.lock.hcl
+
+*.tfplan

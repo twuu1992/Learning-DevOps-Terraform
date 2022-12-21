@@ -28,3 +28,8 @@ variable "my_ip_addr" {
   description = "My IP Address"
   default     = ""
 }
+variable "jenkins_ip_addr" {
+  type        = string
+  description = "Jenkins IP Address"
+  default     = ""
+}

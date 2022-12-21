@@ -1,7 +1,8 @@
 // VPC, Internet Gateway and Subnet
 resource "aws_vpc" "vpc_user_project" {
-  cidr_block       = "172.16.0.0/16"
-  instance_tenancy = "default"
+  cidr_block           = "172.16.0.0/16"
+  instance_tenancy     = "default"
+  enable_dns_hostnames = true
 
   tags = {
     "Name" = "vpc-user-app"
@@ -12,6 +13,19 @@ resource "aws_internet_gateway" "user_gw" {
   vpc_id = aws_vpc.vpc_user_project.id
   tags = {
     Name = "user-app-internet-gateway"
+  }
+}
+
+resource "aws_route_table" "user_rt" {
+  vpc_id = aws_vpc.vpc_user_project.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.user_gw.id
+  }
+
+  tags = {
+    "Name" = "user-app-route-table"
   }
 }
 
