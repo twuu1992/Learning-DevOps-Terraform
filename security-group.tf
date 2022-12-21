@@ -86,7 +86,7 @@ resource "aws_security_group_rule" "app_ssh_local_in" {
   security_group_id = aws_security_group.app.id
 }
 
-resource "aws_security_group_rule" "app_backend_in" {
+resource "aws_security_group_rule" "app_backend_local_in" {
   type              = "ingress"
   from_port         = 4000
   to_port           = 4000
@@ -95,7 +95,7 @@ resource "aws_security_group_rule" "app_backend_in" {
   security_group_id = aws_security_group.app.id
 }
 
-resource "aws_security_group_rule" "app_http_in" {
+resource "aws_security_group_rule" "app_http_local_in" {
   type              = "ingress"
   from_port         = 80
   to_port           = 80
@@ -121,4 +121,13 @@ resource "aws_security_group_rule" "mongodb_ports_ec2_in" {
   protocol          = "tcp"
   cidr_blocks       = ["${aws_instance.my_user_app.public_ip}/32"]
   security_group_id = aws_security_group.mongodb.id
+}
+
+resource "aws_security_group_rule" "jenkins_ssh_local_in" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = [var.jenkins_ip_addr]
+  security_group_id = aws_security_group.app.id
 }
