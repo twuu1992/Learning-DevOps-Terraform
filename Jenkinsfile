@@ -46,19 +46,19 @@ pipeline {
             steps {
             sh '''
             cd Learning-DevOps-Terraform/
-            terraform plan -var my_ip_addr=${my_ip_addr}
+            terraform plan
             ''' 
             }
         }
             
-        // stage ('Terraform apply') { 
-        //     steps {
-        //     sh '''
-        //     cd Learning-DevOps-Terraform/
-        //     terraform apply -var my_ip_addr=${my_ip_addr} --auto-approve
-        //     ''' 
-        //     }
-        // }
+        stage ('Terraform apply') { 
+            steps {
+            sh '''
+            cd Learning-DevOps-Terraform/
+            terraform apply --auto-approve
+            ''' 
+            }
+        }
 
         // stage ('Terraform destroy') { 
         //     steps {
