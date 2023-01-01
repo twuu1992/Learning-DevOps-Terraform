@@ -29,6 +29,11 @@ resource "aws_route_table" "user_rt" {
   }
 }
 
+resource "aws_main_route_table_association" "a" {
+  vpc_id         = aws_vpc.vpc_user_project.id
+  route_table_id = aws_route_table.user_rt.id
+}
+
 locals {
   subnets = [
     {
