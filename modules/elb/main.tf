@@ -46,3 +46,15 @@ resource "aws_lb_listener" "backend" {
     target_group_arn = aws_lb_target_group.backend.arn
   }
 }
+
+resource "aws_lb_target_group_attachment" "frontend_target" {
+  target_group_arn = aws_lb_target_group.frontend.arn
+  target_id        = var.app_target_id
+  port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "backend_target" {
+  target_group_arn = aws_lb_target_group.backend.arn
+  target_id        = var.app_target_id
+  port             = 4000
+}

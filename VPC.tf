@@ -69,4 +69,5 @@ module "app_alb" {
   sg_id_list     = [aws_security_group.alb_sg.id]
   subnet_id_list = values(aws_subnet.subnets)[*].id
   vpc_id         = aws_vpc.vpc_user_project.id
+  app_target_id  = aws_instance.my_user_app.id
 }
