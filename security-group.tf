@@ -21,8 +21,8 @@ resource "aws_security_group" "mongodb" {
   }
 }
 
-resource "aws_security_group" "alb_sg" {
-  name        = "my-user-alb-${var.infra_env}-sg"
+resource "aws_security_group" "lb_sg" {
+  name        = "my-user-lb-${var.infra_env}-sg"
   description = "Security Group for the ALB"
   vpc_id      = aws_vpc.vpc_user_project.id
 
@@ -31,7 +31,7 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.vpc_user_project.cidr_block]
+    cidr_blocks = [var.my_ip_addr]
   }
 
   ingress {
@@ -39,7 +39,7 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 4000
     to_port     = 4000
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.vpc_user_project.cidr_block]
+    cidr_blocks = [var.my_ip_addr]
   }
 
   egress {
@@ -50,7 +50,7 @@ resource "aws_security_group" "alb_sg" {
   }
 
   tags = {
-    Name      = "my-user-alb-${var.infra_env}-sg"
+    Name      = "my-user-lb-${var.infra_env}-sg"
     ManagedBy = "terraform"
   }
 }
@@ -102,6 +102,16 @@ resource "aws_security_group_rule" "app_http_local_in" {
   protocol          = "tcp"
   cidr_blocks       = [var.my_ip_addr]
   security_group_id = aws_security_group.app.id
+}
+
+resource "aws_security_group_rule" "app_jenkins_all_traffic_in" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = [var.jenkins_ip_addr]
+  security_group_id = aws_security_group.app.id
+  description = "All traffic from jenkins node"
 }
 
 //MONGODB
