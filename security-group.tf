@@ -132,12 +132,3 @@ resource "aws_security_group_rule" "mongodb_ports_ec2_in" {
   cidr_blocks       = ["${aws_instance.my_user_app.public_ip}/32"]
   security_group_id = aws_security_group.mongodb.id
 }
-
-resource "aws_security_group_rule" "jenkins_ssh_local_in" {
-  type              = "ingress"
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
-  cidr_blocks       = [var.jenkins_ip_addr]
-  security_group_id = aws_security_group.app.id
-}
