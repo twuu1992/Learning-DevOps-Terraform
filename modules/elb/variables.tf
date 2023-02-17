@@ -12,3 +12,8 @@ variable "vpc_id" {
   type        = string
   description = "VPC ID"
 }
+
+variable "app_target_id" {
+  type        = string
+  description = "Id for the registered target of app"
+}

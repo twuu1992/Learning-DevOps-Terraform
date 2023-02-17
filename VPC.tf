@@ -29,6 +29,11 @@ resource "aws_route_table" "user_rt" {
   }
 }
 
+resource "aws_main_route_table_association" "a" {
+  vpc_id         = aws_vpc.vpc_user_project.id
+  route_table_id = aws_route_table.user_rt.id
+}
+
 locals {
   subnets = [
     {
@@ -58,10 +63,17 @@ resource "aws_subnet" "subnets" {
   }
 }
 
-module "app_alb" {
+resource "aws_route_table_association" "a" {
+  for_each = {for index, subnet in values(aws_subnet.subnets)[*] : index => subnet}
+  subnet_id      = each.value.id
+  route_table_id = aws_route_table.user_rt.id
+}
+
+module "app_lb" {
   source = "./modules/elb"
 
-  sg_id_list     = [aws_security_group.alb_sg.id]
+  sg_id_list     = [aws_security_group.lb_sg.id]
   subnet_id_list = values(aws_subnet.subnets)[*].id
   vpc_id         = aws_vpc.vpc_user_project.id
+  app_target_id  = aws_instance.my_user_app.id
 }

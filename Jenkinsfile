@@ -35,39 +35,34 @@ pipeline {
                 
         stage ('Terraform init') { 
             steps {
-            sh '''
-            cd Learning-DevOps-Terraform/
-            terraform init
-            ''' 
+                dir("Learning-DevOps-Terraform"){
+                sh '''
+                terraform init
+                ''' 
+                }
+            
             }
         }
             
         stage ('Terraform plan') { 
             steps {
-            sh '''
-            cd Learning-DevOps-Terraform/
-            terraform plan
-            ''' 
+                dir("Learning-DevOps-Terraform"){
+                sh '''
+                terraform plan
+                ''' 
+                }
             }
         }
             
         stage ('Terraform apply') { 
             steps {
-            sh '''
-            cd Learning-DevOps-Terraform/
-            terraform apply --auto-approve
-            ''' 
+                dir("Learning-DevOps-Terraform"){
+                sh '''
+                terraform apply --auto-approve
+                ''' 
+                }
+            
             }
         }
-
-        // stage ('Terraform destroy') { 
-        //     steps {
-        //     sh '''
-        //     cd Learning-DevOps-Terraform/
-        //     sleep 30s
-        //     terraform destroy -var my_ip_addr=${my_ip_addr} --auto-approve
-        //     ''' 
-        //     }
-        // }
     }
 }
