@@ -114,6 +114,19 @@ resource "aws_security_group_rule" "app_jenkins_all_traffic_in" {
   description = "All traffic from jenkins node"
 }
 
+resource "aws_security_group_rule" "app_lb_http_in" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = aws_security_group.lb_sg.id
+  security_group_id = aws_security_group.app.id
+  description = "Http request from load balancer"
+  depends_on = [
+    aws_security_group.app, aws_security_group.lb_sg
+  ]
+}
+
 //MONGODB
 resource "aws_security_group_rule" "mongodb_ssh_local_in" {
   type              = "ingress"
