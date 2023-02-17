@@ -1,5 +1,5 @@
 output "alb_DNS" {
-  value = module.app_alb.alb_DNS
+  value = module.app_lb.alb_DNS
 }
 output "user_app_ip_address" {
   value = aws_instance.my_user_app.public_ip
